@@ -21,7 +21,6 @@ class Classement():
         @post: un classement vide de taille 0 a été créé
         """
         self.__oll = oll  # dictionnaire de résultats actuelle (clé = coureur; valeur = résultat)
-        self.__size = oll.length()       # nombre de résultats actuel (initialement 0, maximum __maxcapacity)
 
     def size(self):
         """
@@ -30,7 +29,7 @@ class Classement():
         @pre:  -
         @post: Le nombre de résultats actuellement stockés dans ce classement a été retourné.
         """
-        return self.__size
+        return self.oll().length()
 
     def oll(self):
         return self.__oll
@@ -45,7 +44,7 @@ class Classement():
                     Le résultat est simplement ajouté à la dictionnaire, sans tenir compte de l'ordre.
                     Une dictionnaire ne donne pas de garanties sur l'ordre des éléments.
         """
-        if self.size() >= self.__maxcapacity :
+        if self.size() >= self.__maxcapacity:
             raise Error("Capacity of classement exceeded")
         else:
             self.oll().insert(r)
@@ -58,7 +57,12 @@ class Classement():
               classement. Retourne None si le coureur ne figure pas (encore)
               dans le classement.
         """
-        return self.__resultats.get(c)
+        iter1 = self.oll().first()
+        s = f"{str(self.oll().first())}\n"
+        while iter1.next() is not None:
+            if iter1.value().coureur() == c:
+                return self.oll().value().temps()
+        return None
 
     def get_position(self,c):
         """
@@ -119,8 +123,6 @@ c.insert(e)
 c.insert(d)
 c.insert(f)
 z = Classement(c)
-print(z.size())
-print(z.oll())
 z.add(ccc)
-print(z.size())
 print(z.oll())
+print(z.get("Tom"))
