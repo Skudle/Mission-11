@@ -58,7 +58,6 @@ class Classement():
               dans le classement.
         """
         iter1 = self.oll().first()
-        s = f"{str(self.oll().first())}\n"
         while iter1.next() is not None:
             if iter1.value().coureur() == c:
                 return self.oll().value().temps()
