@@ -32,21 +32,23 @@ class OrderedLinkedList():
         if self.__head is None:  # when this is the first element being added,
             self.__head = node
             node.__next = None
+            return self
         else:
             if node < self.__head:
-                node.__next = self.__head
+                temp = self.__head
                 self.__head = node
+                node.set_next(temp)
             else:
                 iter_ = self.__head
                 while iter_.next() is not None:
                     if node < iter_.next():
-                        node.__next = iter_.next()
-                        iter_.__next = node
-                        break
+                        node.set_next(iter_.next())
+                        iter_.set_next(node)
+                        return self
                     else:
                         iter_ = iter_.next()
                 iter_.set_next(node)
-        return self
+            return self
 
 
 a = Coureur("Tom", 12)
@@ -60,12 +62,7 @@ e = Resultat(b, temps_b)
 f = Resultat(c, temps_c)
 c = OrderedLinkedList()
 
-c.insert(f)
-print(c)
 c.insert(e)
-print(e)
 c.insert(d)
-print(d)
 c.insert(f)
 print(c)
-
