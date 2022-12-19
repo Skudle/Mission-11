@@ -59,8 +59,11 @@ class Classement():
         """
         iter1 = self.oll().first()
         while iter1.next() is not None:
-            if iter1.value().coureur() == c:
-                return self.oll().value().temps()
+            if iter1.value().coureur().nom() == c:
+                return iter1.value().temps()
+            iter1 = iter1.next()
+        if iter1.value().coureur().nom() == c:
+            return iter1.value().temps()
         return None
 
     def get_position(self,c):
