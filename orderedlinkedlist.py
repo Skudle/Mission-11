@@ -51,18 +51,22 @@ class OrderedLinkedList():
             return self
 
 
-a = Coureur("Tom", 12)
+'''a = Coureur("Tom", 12)
 b = Coureur("Pam", 20)
 c = Coureur("Pommate", 2)
+cc = Coureur("Pomme2", 2)
+temps_cc = Temps(0, 0, 1)
 temps_c = Temps(0, 1, 0)
 temps_a = Temps(0, 10, 0)
 temps_b = Temps(0, 5, 0)
 d = Resultat(a, temps_a)
 e = Resultat(b, temps_b)
 f = Resultat(c, temps_c)
+ccc = Resultat(cc, temps_cc)
 c = OrderedLinkedList()
 
 c.insert(e)
 c.insert(d)
 c.insert(f)
-print(c)
+c.insert(ccc)
+print(c)'''

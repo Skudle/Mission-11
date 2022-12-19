@@ -1,4 +1,11 @@
-class Classement :
+from orderedlinkedlist import OrderedLinkedList
+from coureur import Coureur
+from resultat import Resultat
+from temps import Temps
+from linked_list import LinkedList
+
+
+class Classement():
     """
     Une implémentation primitive de classement, non ordonnée et de capacité fixe.
     @author Kim Mens
@@ -7,13 +14,14 @@ class Classement :
 
     __maxcapacity = 10
 
-    def __init__(self):
+    def __init__(self, oll):
+        super().__init__()
         """
         @pre: -
         @post: un classement vide de taille 0 a été créé
         """
-        self.__resultats = {}   # dictionnaire de résultats actuelle (clé = coureur; valeur = résultat)
-        self.__size = 0         # nombre de résultats actuel (initialement 0, maximum __maxcapacity)
+        self.__oll = oll  # dictionnaire de résultats actuelle (clé = coureur; valeur = résultat)
+        self.__size = oll.length()       # nombre de résultats actuel (initialement 0, maximum __maxcapacity)
 
     def size(self):
         """
@@ -24,7 +32,10 @@ class Classement :
         """
         return self.__size
 
-    def add(self,r):
+    def oll(self):
+        return self.__oll
+
+    def add(self, r):
         """
         Ajoute un résultat r dans ce classement.
         @pre:  r est une instance de la classe Resultat
@@ -36,9 +47,8 @@ class Classement :
         """
         if self.size() >= self.__maxcapacity :
             raise Error("Capacity of classement exceeded")
-        else :
-            self.__size += 1
-            self.__resultats[r.coureur()] = r
+        else:
+            self.oll().insert(r)
 
     def get(self,c):
         """
@@ -90,3 +100,27 @@ class Classement :
         for c in d:
             s += "  " + str(self.get_position(c)) + " > " + str(d[c]) + "\n"
         return s
+
+
+a = Coureur("Tom", 12)
+b = Coureur("Pam", 20)
+c = Coureur("Pommate", 2)
+cc = Coureur("Pomme2", 2)
+temps_cc = Temps(0, 0, 1)
+temps_c = Temps(0, 1, 0)
+temps_a = Temps(0, 10, 0)
+temps_b = Temps(0, 5, 0)
+d = Resultat(a, temps_a)
+e = Resultat(b, temps_b)
+f = Resultat(c, temps_c)
+ccc = Resultat(cc, temps_cc)
+c = OrderedLinkedList()
+c.insert(e)
+c.insert(d)
+c.insert(f)
+z = Classement(c)
+print(z.size())
+print(z.oll())
+z.add(ccc)
+print(z.size())
+print(z.oll())
