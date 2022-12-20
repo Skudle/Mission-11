@@ -4,6 +4,7 @@ from coureur import Coureur
 from classement import Classement
 from temps import Temps
 from resultat import Resultat
+from orderedlinkedlist import OrderedLinkedList
 
 
 class Main:
@@ -20,23 +21,44 @@ class Main:
                  Coureur("Emile", 25),  \
                  Coureur("Fred", 28),  \
                  Coureur("Gerard", 25) ]
+    temps_Alfred = Temps(0, 0, 0)
+    temps_Bernard = Temps(0, 0, 0)
+    temps_Claude = Temps(0, 0, 0)
+    temps_Daniel = Temps(0, 0, 0)
+    temps_Emile = Temps(0, 0, 0)
+    temps_Fred = Temps(0, 0, 0)
+    temps_Gerard = Temps(0, 0, 0)
+
+    result = [Resultat(Coureur("Alfred", 24), temps_Alfred), Resultat(Coureur("Bernard", 27), temps_Bernard), \
+              Resultat(Coureur("Claude", 19), temps_Claude), Resultat(Coureur("Daniel", 31), temps_Daniel), \
+              Resultat(Coureur("Emile", 25), temps_Emile), Resultat(Coureur("Fred", 28), temps_Fred), \
+              Resultat(Coureur("Gerard", 25), temps_Gerard)]
+
+    oll_lst = OrderedLinkedList()
+
+    for i in result:
+        oll_lst.insert(i)
 
     @classmethod
     def main(cls):
         # Créer un classement initialement vide pour la course
         cl = Classement()
         # Boucle infinie
-        while True :      
+        while True:
             # Choisir aléatoirement un coureur de la liste
             c = random.choice(cls.coureurs)
             # Lui assigner un temps entre 1000 et 5000 secondes
-            t = Temps()
-            t.add_secondes(random.randint(1000, 5000))
+            cherche_coureur = True
+            while cherche_coureur:
+                for a in cls.result:
+                    if a.coureur().nom() == c.nom():
+                        a.temps().add_secondes(random.randint(1000, 5000))
+                        cherche_coureur = False
+                        break
             # Créer un résultat pour ce coureur avec ce temps
-            r = Resultat(c, t)
-            print(r)
+            print(a)
             # Cherche le dernier résultat de ce coureur dans le classement.
-            r1 = cl.get(r.coureur())
+            r1 = cl.get(a.coureur().nom())
             # Imprime le classement actuel de coureur dans le classement.
             if r1 is None :
                 print("  Pas encore classé")
