@@ -14,7 +14,7 @@ class Classement():
 
     __maxcapacity = 10
 
-    def __init__(self, oll):
+    def __init__(self, oll=None):
         super().__init__()
         """
         @pre: -
@@ -45,7 +45,7 @@ class Classement():
                     Une dictionnaire ne donne pas de garanties sur l'ordre des éléments.
         """
         if self.size() >= self.__maxcapacity:
-            raise Error("Capacity of classement exceeded")
+            raise ValueError("Capacity of classement exceeded")
         else:
             self.oll().insert(r)
 
@@ -80,7 +80,17 @@ class Classement():
                     A vous de la corriger en utilisant une liste chaînée ordonnée
                     comme structure de données, plutôt qu'une simple dictionnaire.
         """
-        return "***position inconnue***"
+        iter1 = self.oll().first()
+        position = 0
+        while iter1.next() is not None:
+            position += 1
+            if iter1.value().coureur().nom() == c:
+                return position
+            iter1 = iter1.next()
+        if iter1.value().coureur().nom() == c:
+            position += 1
+            return position
+        return -1
 
     def remove(self,c):
         """
@@ -90,8 +100,21 @@ class Classement():
               c est comparé au sens de __eq__. Retourne c si un résultat a été retiré,
               of False si c n'est pas trouvé dans la liste.
         """
-        self.__size -= 1
-        return self.__resultats.pop(c,False)
+        iter1 = self.oll().first()
+        previous_iter1 = self.oll().first()
+        while iter1.next() is not None:
+            if iter1.value().coureur().nom() != c:
+                previous_iter1 = iter1
+                iter1 = iter1.next()
+            else:
+                if self.oll().first().value().coureur().nom() == c:
+                    self.oll().remove_first()
+                    break
+                previous_iter1.set_next(iter1.next())
+                break
+        if iter1.value().coureur().nom() != c:
+            print("False")
+        previous_iter1.set_next(iter1.next())
 
     def __str__(self):
         """
@@ -102,13 +125,15 @@ class Classement():
                avec une ligne par résultat.
         """
         s = ""
-        d = self.__resultats
-        for c in d:
-            s += "  " + str(self.get_position(c)) + " > " + str(d[c]) + "\n"
+        iter1 = self.oll().first()
+        while iter1.next() is not None:
+            s += "  " + str(self.get_position(iter1.value().coureur().nom())) + " > " + str(iter1.value().temps()) + "\n"
+            iter1 = iter1.next()
+        s += "  " + str(self.get_position(iter1.value().coureur().nom())) + " > " + str(iter1.value().temps()) + "\n"
         return s
 
 
-a = Coureur("Tom", 12)
+'''a = Coureur("Tom", 12)
 b = Coureur("Pam", 20)
 c = Coureur("Pommate", 2)
 cc = Coureur("Pomme2", 2)
@@ -126,5 +151,4 @@ c.insert(d)
 c.insert(f)
 z = Classement(c)
 z.add(ccc)
-print(z.oll())
-print(z.get("Tom"))
+print(z)'''

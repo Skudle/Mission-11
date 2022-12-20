@@ -60,3 +60,7 @@ class Coureur :
                dans le format "Coureur NOM (age AGE)" 
         """
         return "Coureur " + self.nom() + " (âge " + str(self.age()) + ")"
+
+    def __ge__(self, other):
+        if self > other:
+            return True

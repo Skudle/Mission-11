@@ -26,6 +26,9 @@ class OrderedLinkedList():
     def length(self):
         return self.__length
 
+    def remove_first(self):
+        self.__head = self.first().next()
+
     def insert(self, cargo):
         node = LinkedList.Node(cargo)
         self.__length += 1
