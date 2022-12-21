@@ -42,7 +42,7 @@ class Main:
     @classmethod
     def main(cls):
         # Créer un classement initialement vide pour la course
-        cl = Classement()
+        cl = Classement(cls.oll_lst)
         # Boucle infinie
         while True:
             # Choisir aléatoirement un coureur de la liste

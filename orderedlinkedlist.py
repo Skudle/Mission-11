@@ -35,33 +35,41 @@ class OrderedLinkedList():
         if self.__head is None:  # when this is the first element being added,
             self.__head = node
             node.__next = None
+            print("dans le head {self}")
             return self
         else:
             if node < self.__head:
-                temp = self.__head
+                print(f" dans le if {self}")
+                node.set_next(self.__head)
                 self.__head = node
-                node.set_next(temp)
+                print(f"-------------------------> {self} ")
+                return self
             else:
                 iter_ = self.__head
+                print(f"--------------- aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa{self}")
                 while iter_.next() is not None:
                     if node < iter_.next():
                         node.set_next(iter_.next())
                         iter_.set_next(node)
+                        print(f"---------------------------------------------dans le else {self}")
                         return self
                     else:
+                        print("dans le else du while")
                         iter_ = iter_.next()
                 iter_.set_next(node)
-            return self
+                print(f"dans aucun {self}")
+                return self
+
 
 
 '''a = Coureur("Tom", 12)
 b = Coureur("Pam", 20)
 c = Coureur("Pommate", 2)
 cc = Coureur("Pomme2", 2)
-temps_cc = Temps(0, 0, 1)
-temps_c = Temps(0, 1, 0)
-temps_a = Temps(0, 10, 0)
-temps_b = Temps(0, 5, 0)
+temps_cc = Temps(1, 22, 24)
+temps_c = Temps(1, 16, 21)
+temps_a = Temps(0, 54, 36)
+temps_b = Temps(0, 37, 51)
 d = Resultat(a, temps_a)
 e = Resultat(b, temps_b)
 f = Resultat(c, temps_c)
@@ -69,7 +77,8 @@ ccc = Resultat(cc, temps_cc)
 c = OrderedLinkedList()
 
 c.insert(e)
-c.insert(d)
 c.insert(f)
 c.insert(ccc)
-print(c)'''
+c.insert(d)
+print(c)
+'''

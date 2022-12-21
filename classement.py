@@ -14,7 +14,7 @@ class Classement():
 
     __maxcapacity = 10
 
-    def __init__(self, oll=None):
+    def __init__(self, oll=OrderedLinkedList()):
         super().__init__()
         """
         @pre: -
@@ -58,12 +58,14 @@ class Classement():
               dans le classement.
         """
         iter1 = self.oll().first()
+        if iter1 is None:
+            return None
         while iter1.next() is not None:
-            if iter1.value().coureur().nom() == c:
-                return iter1.value().temps()
+            if iter1.value().coureur().nom() == c.nom():
+                return iter1.value()
             iter1 = iter1.next()
-        if iter1.value().coureur().nom() == c:
-            return iter1.value().temps()
+        if iter1.value().coureur().nom() == c.nom():
+            return iter1.value()
         return None
 
     def get_position(self,c):
@@ -84,10 +86,10 @@ class Classement():
         position = 0
         while iter1.next() is not None:
             position += 1
-            if iter1.value().coureur().nom() == c:
+            if iter1.value().coureur().nom() == c.nom():
                 return position
             iter1 = iter1.next()
-        if iter1.value().coureur().nom() == c:
+        if iter1.value().coureur().nom() == c.nom():
             position += 1
             return position
         return -1
@@ -102,6 +104,8 @@ class Classement():
         """
         iter1 = self.oll().first()
         previous_iter1 = self.oll().first()
+        if iter1 is None:
+            return None
         while iter1.next() is not None:
             if iter1.value().coureur().nom() != c:
                 previous_iter1 = iter1
@@ -112,8 +116,6 @@ class Classement():
                     break
                 previous_iter1.set_next(iter1.next())
                 break
-        if iter1.value().coureur().nom() != c:
-            print("False")
         previous_iter1.set_next(iter1.next())
 
     def __str__(self):
@@ -127,9 +129,9 @@ class Classement():
         s = ""
         iter1 = self.oll().first()
         while iter1.next() is not None:
-            s += "  " + str(self.get_position(iter1.value().coureur().nom())) + " > " + str(iter1.value().temps()) + "\n"
+            s += "  " + str(self.get_position(iter1.value().coureur())) + " > " + str(iter1.value().temps()) + "\n"
             iter1 = iter1.next()
-        s += "  " + str(self.get_position(iter1.value().coureur().nom())) + " > " + str(iter1.value().temps()) + "\n"
+        s += "  " + str(self.get_position(iter1.value().coureur())) + " > " + str(iter1.value().temps()) + "\n"
         return s
 
 
