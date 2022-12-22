@@ -2,8 +2,12 @@
 # LinkedList class #
 ####################
 from coureur import Coureur
-class LinkedList :
-    
+from resultat import Resultat
+from temps import Temps
+
+
+class LinkedList:
+
     def __init__(self, lst=[]):
         """
         Initialises a new linked list object, with a given list of elements lst.
@@ -55,7 +59,7 @@ class LinkedList :
         """
         return self.__head
     
-    def set_first(self,n):
+    def set_first(self, n):
         """
         Mutator method to reassign the head of this linked list to a new node.
         @pre:  -
@@ -72,11 +76,12 @@ class LinkedList :
                The length counter has been incremented by 1.
                The head of the linked list now points to this new node.
         """
-        node = self.Node(cargo,self.first())
-        if self.first() == None :   # when this is the first element being added,
+        node = self.Node(cargo, self.first())
+        if self.first() is None:   # when this is the first element being added,
             self.__last = node     # set the last pointer to this new node
         self.set_first(node)
         self.inc_size()
+
 
     def print(self):
         """
@@ -165,6 +170,9 @@ class LinkedList :
             self.__cargo = cargo
             self.__next = next
 
+        def __lt__(self, other):
+            return self.__cargo < other.__cargo
+
         def value(self):
             """
             Returns the value of the cargo contained in this node.
@@ -221,10 +229,10 @@ class LinkedList :
             """
             head = self
             tail = self.__next       # go to my next node
-            if tail is not None :    # as long as the end of the list has not been reached
-                print(head, end=" ") # print my head 
+            if tail is not None:    # as long as the end of the list has not been reached
+                print(head, end=" ") # print my head
                 tail.print_list()    # recursively print remainder of the list
-            else :                   # print the last element
+            else:                   # print the last element
                 print(head, end=" ")
 
         def print_backward(self):
@@ -251,9 +259,8 @@ class LinkedList :
         def print_list_avec_separateur(self,separateur):
             head = self
             tail = self.__next      # go to my next node
-            if tail is not None : # as long as the end of the list has not been reached
+            if tail is not None:    # as long as the end of the list has not been reached
                 print(head, end=separateur)  # print my head, with separateur 
                 tail.print_list_avec_separateur(separateur) # recursively print remainder of the list
             else:                 # print the last element
-                print(head, end=" ") # print my head, with a space
-
+                print(head, end=" ")   # print my head, with a space

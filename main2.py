@@ -1,9 +1,9 @@
 import random
 import time
-from coureur    import Coureur
+from coureur import Coureur
 from classement import Classement
-from temps      import Temps
-from resultat   import Resultat
+from temps import Temps
+from resultat import Resultat
 
 class Main :
     """
@@ -25,7 +25,7 @@ class Main :
         # Créer un classement initialement vide pour la course
         cl = Classement()
         # Boucle infinie
-        while True :      
+        while True:
             # Choisir aléatoirement un coureur de la liste
             c = random.choice(cls.coureurs)
             # Lui assigner un temps entre 1000 et 5000 secondes
@@ -45,10 +45,13 @@ class Main :
             # Compare son dernier résultat stocké avec son nouveau résultat
             if r1 is not None and r >= r1 :
                 print("  Moins bon temps, ignoré")
-            else :
+            else:
                 print("  Nouveau temps est meilleur; sera enregistré")
                 cl.remove(c)
                 cl.add(r)
+                print("--------------------------------------------")
+                print(f"{cl.oll()}")
+                print("----------------------------------------------")
                 print("  Maintenant classé " + str(cl.get_position(c)));
                 print()
                 print("CLASSEMENT:")
